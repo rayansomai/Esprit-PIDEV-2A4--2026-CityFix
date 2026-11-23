@@ -1,0 +1,3 @@
+# CITYFIX — configuration Apache (racine)
+# Empêche l'affichage de la liste des fichiers d'un dossier sans index.
+Options -Indexes

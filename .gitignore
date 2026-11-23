@@ -1,0 +1,16 @@
+# vendor/ est versionné : il contient uniquement PHPMailer (3 fichiers)
+# /vendor/
+
+# Journaux (dont le mode test des e-mails)
+/storage/logs/*
+!/storage/logs/.gitkeep
+
+# Identifiants locaux : ne jamais publier sur GitHub
+/config/mail.local.php
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+/backups/

@@ -1,0 +1,71 @@
+[OK ] P0 — Page publique « home » accessible sans erreur PHP
+[OK ] P0 — Page publique « about » accessible sans erreur PHP
+[OK ] P0 — Page publique « login » accessible sans erreur PHP
+[OK ] P0 — Page publique « register » accessible sans erreur PHP
+[OK ] P0 — Page publique « forgot_password » accessible sans erreur PHP
+[OK ] P1 — Action inconnue -> 404
+[OK ] S1 — En-têtes de sécurité présents (CSP, X-Frame-Options, nosniff)
+[OK ] S2 — Cookie de session HttpOnly + SameSite=Lax
+[OK ] T1 — Inscription valide -> redirection vers la connexion
+[OK ] T3 — Inscription : role_id=3 injecté ignoré -> rôle citoyen (redirigé vers le profil)
+[OK ] T2a — Inscription invalide -> erreurs affichées, pas de redirection
+[OK ] T2b — Inscription avec e-mail déjà utilisé -> refusée
+[OK ] T2c — Inscription : confirmation différente -> refusée
+[OK ] T4 — Connexion valide citoyen -> profil
+[OK ] T4 — Connexion valide agent -> dashboard
+[OK ] T4 — Connexion valide admin -> dashboard
+[OK ] T5a — Mauvais mot de passe -> refus, pas de session
+[OK ] T5b — Compte inactif -> connexion refusée
+[OK ] T5c — E-mail inconnu -> même message générique
+[OK ] T6 — Identifiant de session régénéré après connexion
+[OK ] S3 — Après 5 échecs : blocage temporaire même avec le bon mot de passe
+[OK ] T8a — Déconnexion en GET refusée (405)
+[OK ] T8b — Après déconnexion : page protégée inaccessible
+[OK ] T9 — Sans connexion : « dashboard » -> redirection connexion
+[OK ] T9 — Sans connexion : « users » -> redirection connexion
+[OK ] T9 — Sans connexion : « roles » -> redirection connexion
+[OK ] T9 — Sans connexion : « profile » -> redirection connexion
+[OK ] T9 — Sans connexion : « user_create » -> redirection connexion
+[OK ] T10 — Citoyen : « dashboard » -> 403
+[OK ] T10 — Citoyen : « users » -> 403
+[OK ] T10 — Citoyen : « roles » -> 403
+[OK ] T10 — Citoyen : « user_create » -> 403
+[OK ] T11a — Agent : dashboard accessible
+[OK ] T11b — Agent : liste des utilisateurs en lecture seule (aucun bouton Supprimer)
+[OK ] T11c — Agent : « user_create » -> 403
+[OK ] T11c — Agent : « roles » -> 403
+[OK ] T11d — Agent : POST user_delete forgé -> 403, rien n'est supprimé
+[OK ] T11e — Agent : POST user_toggle forgé -> 403
+[OK ] C1 — Admin : création d'un utilisateur
+[OK ] C2 — Admin : recherche par e-mail retrouve l'utilisateur créé
+[OK ] C3 — Admin : filtre rôle + statut
+[OK ] C4 — Admin : fiche détail
+[OK ] C5 — Admin : modification (nom + rôle)
+[OK ] C6 — Admin : désactivation
+[OK ] C7 — Admin : suppression
+[OK ] C8 — Suppression par simple lien (GET) refusée
+[OK ] T13a — Admin : auto-suppression refusée
+[OK ] T12 — Admin désactivé pendant sa session -> accès perdu à la requête suivante
+[OK ] T13b — Dernier admin (soi-même) : rétrogradation refusée
+[OK ] T13c — Suppression d'un admin possible quand il en reste un autre
+[OK ] T13d — Dernier admin : formulaire verrouillé (rôle/statut désactivés)
+[OK ] T14a — POST sans jeton CSRF refusé
+[OK ] T14b — POST avec faux jeton CSRF refusé
+[OK ] T15a — Injection SQL dans la connexion sans effet
+[OK ] T15b — Injection SQL dans la recherche sans effet (0 résultat, pas d'erreur)
+[OK ] T16a — XSS : nom avec <script> refusé par la validation
+[OK ] T16b — XSS : terme de recherche réaffiché échappé
+[OK ] F1 — Citoyen : mise à jour du profil
+[OK ] F2 — Citoyen : changement de mot de passe refusé si l'actuel est faux
+[OK ] T17a — Mot de passe oublié : lien généré (mode test local)
+[OK ] T18 — E-mail inconnu : même message de confirmation
+[OK ] T17b — Lien valide : nouveau mot de passe enregistré
+[OK ] T17c — Connexion avec le nouveau mot de passe
+[OK ] T17d — Lien déjà utilisé -> refusé (usage unique)
+[OK ] T17e — Jeton inventé -> refusé
+[OK ] R1 — Permission users.toggle donnée à l'agent -> bouton visible (users.view ajouté automatiquement)
+[OK ] R2 — roles.manage (réservée admin) jamais attribuée à l'agent
+[OK ] R3 — Agent avec users.toggle ne peut pas agir sur un compte administrateur (403)
+[OK ] R4 — Permission retirée -> effet immédiat (bouton disparu)
+
+69/69 tests réussis

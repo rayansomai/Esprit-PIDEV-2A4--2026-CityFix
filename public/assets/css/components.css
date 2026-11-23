@@ -1,0 +1,382 @@
+/* ==========================================================================
+   CITYFIX — components.css
+   Composants réutilisables, communs au Front Office et au Back Office :
+   1. Logo
+   2. Boutons
+   3. Formulaires (champs, erreurs, indicateur de mot de passe)
+   4. Cartes
+   5. Badges (rôles, statuts)
+   6. Alertes (messages flash)
+   7. Tableaux
+   8. Avatar
+   9. Icônes
+   Dépend des variables définies dans base.css.
+   ========================================================================== */
+
+/* 1. LOGO ----------------------------------------------------------------- */
+.cf-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--cf-space-3);
+    font-family: var(--cf-font-title);
+    font-size: 1.375rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--cf-navy);
+}
+.cf-logo:hover { text-decoration: none; color: var(--cf-navy); }
+.cf-logo__mark {
+    width: 2.375rem;
+    height: 2.375rem;
+    border-radius: 0.6875rem;
+    background: var(--cf-navy);
+    color: var(--cf-green-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.cf-logo__accent { color: var(--cf-green-dark); }
+.cf-logo--light { color: var(--cf-white); }            /* logo sur fond navy */
+.cf-logo--light:hover { color: var(--cf-white); }
+.cf-logo--light .cf-logo__mark { background: var(--cf-white); color: var(--cf-green-dark); }
+.cf-logo--light .cf-logo__accent { color: var(--cf-green-light); }
+
+/* 2. BOUTONS -------------------------------------------------------------- */
+.cf-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--cf-space-2);
+    min-height: 2.75rem;               /* 44px : cible tactile minimale */
+    padding: 0 var(--cf-space-5);
+    border: 1px solid transparent;
+    border-radius: var(--cf-radius);
+    font-size: var(--cf-fs-sm);
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color var(--cf-transition), border-color var(--cf-transition),
+                color var(--cf-transition), transform var(--cf-transition);
+}
+.cf-btn:hover { text-decoration: none; }
+.cf-btn:active { transform: translateY(1px); }
+.cf-btn:disabled,
+.cf-btn[aria-disabled="true"] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.cf-btn--primary   { background: var(--cf-green-dark); color: var(--cf-white); }
+.cf-btn--primary:hover   { background: #166534; color: var(--cf-white); }
+.cf-btn--secondary { background: var(--cf-navy); color: var(--cf-white); }
+.cf-btn--secondary:hover { background: var(--cf-navy-light); color: var(--cf-white); }
+.cf-btn--outline   { background: var(--cf-white); border-color: var(--cf-border-strong); color: var(--cf-text); }
+.cf-btn--outline:hover   { border-color: var(--cf-navy); color: var(--cf-navy); }
+.cf-btn--ghost     { background: transparent; color: var(--cf-text-muted); }
+.cf-btn--ghost:hover     { background: var(--cf-bg); color: var(--cf-navy); }
+.cf-btn--danger    { background: var(--cf-danger); color: var(--cf-white); }
+.cf-btn--danger:hover    { background: var(--cf-danger-text); color: var(--cf-white); }
+.cf-btn--danger-outline { background: var(--cf-white); border-color: #FCA5A5; color: var(--cf-danger); }
+.cf-btn--danger-outline:hover { background: var(--cf-danger-bg); color: var(--cf-danger-text); }
+.cf-btn--light     { background: var(--cf-green); color: var(--cf-white); }   /* gros bouton sur fond navy */
+.cf-btn--light:hover { background: var(--cf-green-dark); color: var(--cf-white); }
+
+.cf-btn--lg { min-height: 3.125rem; padding: 0 var(--cf-space-6); font-size: var(--cf-fs-md); border-radius: 0.75rem; }
+.cf-btn--block { width: 100%; }
+.cf-btn--icon {            /* bouton contenant seulement une icône : ajouter aria-label */
+    width: 2.5rem;
+    min-height: 2.5rem;
+    padding: 0;
+    border-radius: 0.5625rem;
+}
+
+/* 3. FORMULAIRES ---------------------------------------------------------- */
+.cf-form { display: flex; flex-direction: column; gap: var(--cf-space-5); }
+.cf-form-row {             /* deux champs côte à côte, empilés sur mobile */
+    display: grid;
+    gap: var(--cf-space-4);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+}
+.cf-field { display: flex; flex-direction: column; gap: 0.4375rem; }
+.cf-label {
+    font-size: var(--cf-fs-sm);
+    font-weight: 600;
+    color: var(--cf-text);
+}
+.cf-label__optional { font-weight: 400; color: var(--cf-text-muted); }
+.cf-required { color: var(--cf-danger); }
+
+.cf-input,
+.cf-select,
+.cf-textarea {
+    width: 100%;
+    min-height: 2.875rem;
+    padding: 0 0.875rem;
+    border: 1px solid var(--cf-border-strong);
+    border-radius: var(--cf-radius);
+    background: var(--cf-white);
+    font-size: 0.9375rem;
+    transition: border-color var(--cf-transition), box-shadow var(--cf-transition);
+}
+.cf-textarea { padding-block: var(--cf-space-3); min-height: 7rem; resize: vertical; }
+.cf-input::placeholder { color: #6B7280; }
+.cf-input:focus,
+.cf-select:focus,
+.cf-textarea:focus {
+    outline: none;
+    border-color: var(--cf-green);
+    box-shadow: var(--cf-focus-ring);
+}
+.cf-input:disabled,
+.cf-select:disabled { background: var(--cf-bg); cursor: not-allowed; }
+
+/* État d'erreur : ajouté par PHP (serveur) ou par JavaScript (client) */
+.cf-input.is-invalid,
+.cf-select.is-invalid,
+.cf-input[aria-invalid="true"] {
+    border: 1.5px solid #DC2626;
+}
+.cf-field-error {
+    font-size: var(--cf-fs-xs);
+    color: var(--cf-danger);
+}
+.cf-field-hint {
+    font-size: var(--cf-fs-xs);
+    color: var(--cf-text-muted);
+}
+
+/* Case à cocher / bouton radio */
+.cf-check {
+    display: flex;
+    align-items: center;
+    gap: var(--cf-space-3);
+    font-size: 0.9375rem;
+    cursor: pointer;
+}
+.cf-check input { width: 1.25rem; height: 1.25rem; accent-color: var(--cf-green-dark); }
+
+/* Carte de choix (sélection du rôle) */
+.cf-choice {
+    display: flex;
+    gap: var(--cf-space-3);
+    align-items: flex-start;
+    padding: var(--cf-space-4);
+    border: 1px solid var(--cf-border);
+    border-radius: 0.875rem;
+    background: var(--cf-white);
+    cursor: pointer;
+    transition: border-color var(--cf-transition), background-color var(--cf-transition);
+}
+.cf-choice:has(input:checked) { border: 2px solid var(--cf-green-dark); background: #F0FDF4; }
+.cf-choice:has(input:disabled) { opacity: 0.5; cursor: not-allowed; }
+.cf-choice input { margin-top: 0.125rem; accent-color: var(--cf-green-dark); }
+
+/* Indicateur de force du mot de passe (rempli par JavaScript) */
+.cf-strength { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.375rem; }
+.cf-strength span { height: 5px; border-radius: 3px; background: var(--cf-border); transition: background-color var(--cf-transition); }
+.cf-strength span.is-on { background: var(--cf-green); }
+
+/* 4. CARTES --------------------------------------------------------------- */
+.cf-card {
+    background: var(--cf-white);
+    border-radius: var(--cf-radius-lg);
+    padding: var(--cf-space-6);
+    box-shadow: var(--cf-shadow-sm);
+}
+.cf-card--hover { transition: transform var(--cf-transition), box-shadow var(--cf-transition); }
+.cf-card--hover:hover { transform: translateY(-3px); box-shadow: var(--cf-shadow); }
+.cf-card__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--cf-space-3);
+    margin-bottom: var(--cf-space-4);
+}
+.cf-card__title { margin: 0; font-size: var(--cf-fs-lg); }
+.cf-card--danger { border: 1px solid #FECACA; box-shadow: none; }
+
+/* Carte statistique (dashboard) */
+.cf-stat { display: flex; flex-direction: column; gap: var(--cf-space-3); }
+.cf-stat__top { display: flex; align-items: center; justify-content: space-between; }
+.cf-stat__label { font-size: var(--cf-fs-sm); font-weight: 500; color: var(--cf-text-muted); }
+.cf-stat__value { font-family: var(--cf-font-title); font-size: var(--cf-fs-2xl); font-weight: 800; color: var(--cf-navy); line-height: 1; }
+
+/* Pastille d'icône colorée */
+.cf-icon-box {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.cf-icon-box--lg { width: 3rem; height: 3rem; border-radius: 0.875rem; }
+.cf-icon-box--green { background: var(--cf-green-soft); color: var(--cf-green-dark); }
+.cf-icon-box--blue  { background: var(--cf-info-bg); color: #1D4ED8; }
+.cf-icon-box--navy  { background: var(--cf-admin-bg); color: var(--cf-navy); }
+.cf-icon-box--red   { background: var(--cf-danger-bg); color: var(--cf-danger); }
+.cf-icon-box--amber { background: #FEF3C7; color: #B45309; }
+.cf-icon-box--dark  { background: var(--cf-navy); color: var(--cf-green-light); }
+
+/* 5. BADGES --------------------------------------------------------------- */
+.cf-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--cf-radius-pill);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+.cf-badge--citoyen { background: var(--cf-success-bg); color: var(--cf-success-text); }
+.cf-badge--agent   { background: var(--cf-info-bg); color: var(--cf-info-text); }
+.cf-badge--admin   { background: var(--cf-admin-bg); color: var(--cf-navy); }
+.cf-badge--neutral { background: var(--cf-bg); color: var(--cf-text-muted); }
+
+/* Statut du compte : la couleur est doublée par le texte « Actif / Inactif » */
+.cf-status { display: inline-flex; align-items: center; gap: 0.375rem; font-size: var(--cf-fs-xs); font-weight: 600; }
+.cf-status::before { content: ""; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: currentColor; }
+.cf-status--actif   { color: var(--cf-success-text); }
+.cf-status--inactif { color: var(--cf-danger); }
+
+/* 6. ALERTES (messages flash) --------------------------------------------- */
+.cf-alert {
+    display: block;
+    padding: var(--cf-space-3) var(--cf-space-4);
+    border-radius: 0.625rem;
+    font-size: var(--cf-fs-sm);
+    font-weight: 500;
+    line-height: 1.5;
+}
+.cf-alert ul { margin: 0; padding-left: var(--cf-space-5); }
+.cf-alert--success { background: var(--cf-success-bg); color: var(--cf-success-text); }
+.cf-alert--error   { background: var(--cf-danger-bg); color: var(--cf-danger-text); }
+.cf-alert--info    { background: var(--cf-info-bg); color: var(--cf-info-text); }
+.cf-alert--warning { background: var(--cf-warning-bg); color: var(--cf-warning-text); border: 1px solid var(--cf-warning-border); }
+
+/* 7. TABLEAUX ------------------------------------------------------------- */
+.cf-table-wrap {          /* défilement horizontal sur petit écran */
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.cf-table { min-width: 45rem; font-size: var(--cf-fs-sm); }
+.cf-table th {
+    padding: var(--cf-space-3) var(--cf-space-4);
+    background: #F9FAFB;
+    color: var(--cf-text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-align: left;
+    text-transform: uppercase;
+}
+.cf-table td {
+    padding: var(--cf-space-3) var(--cf-space-4);
+    border-top: 1px solid #F1F5F9;
+    vertical-align: middle;
+}
+.cf-table tbody tr { transition: background-color var(--cf-transition); }
+.cf-table tbody tr:hover { background: #F9FAFB; }
+.cf-table__actions { display: flex; justify-content: flex-end; gap: var(--cf-space-1); }
+.cf-table__empty { padding: var(--cf-space-10); text-align: center; color: var(--cf-text-muted); }
+
+/* Pagination */
+.cf-pagination { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+.cf-pagination a,
+.cf-pagination span {
+    min-width: 2.25rem;
+    height: 2.25rem;
+    padding: 0 var(--cf-space-2);
+    border: 1px solid var(--cf-border);
+    border-radius: 0.5625rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cf-text);
+    font-size: var(--cf-fs-sm);
+    text-decoration: none;
+}
+.cf-pagination a:hover { border-color: var(--cf-navy); }
+.cf-pagination [aria-current="page"] { background: var(--cf-navy); border-color: var(--cf-navy); color: var(--cf-white); font-weight: 600; }
+
+/* 8. AVATAR (initiales) --------------------------------------------------- */
+.cf-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: var(--cf-navy);
+    color: var(--cf-white);
+    font-size: var(--cf-fs-sm);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.cf-avatar--soft { background: var(--cf-green-soft); color: var(--cf-success-text); }
+.cf-avatar--lg { width: 5.25rem; height: 5.25rem; font-family: var(--cf-font-title); font-size: 1.875rem; font-weight: 800; }
+
+/* 9. ICÔNES (SVG intégrés, trait 1,8px) ------------------------------------ */
+.cf-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+}
+.cf-icon--sm { width: 1.125rem; height: 1.125rem; }
+.cf-icon--lg { width: 1.5rem; height: 1.5rem; }
+
+/* 10. COMPLÉMENTS COMMUNS (Module 1) --------------------------------------- */
+.cf-btn--on-dark { background: transparent; border-color: rgba(255, 255, 255, 0.3); color: var(--cf-white); }
+.cf-btn--on-dark:hover { background: rgba(255, 255, 255, 0.08); color: var(--cf-white); }
+.cf-badge--on-dark { background: rgba(255, 255, 255, 0.12); color: #E2E8F0; }
+.cf-avatar--light { background: var(--cf-bg); color: var(--cf-navy); }
+
+.cf-inline-form { display: inline-flex; margin: 0; }
+.cf-row--center { justify-content: center; }
+.cf-text-right { text-align: right; }
+.cf-mb-4 { margin-bottom: var(--cf-space-4); }
+
+.cf-card--flush { padding: 0; overflow: hidden; }
+.cf-card--dashed { background: var(--cf-white); border: 1.5px dashed #CBD5E1; box-shadow: none; display: flex; flex-direction: column; gap: var(--cf-space-2); align-items: flex-start; }
+.cf-card--dashed h3 { margin: 0; font-size: var(--cf-fs-md); }
+
+/* Formulaires longs */
+.cf-fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--cf-space-4); min-width: 0; }
+.cf-fieldset legend { padding: 0; margin-bottom: var(--cf-space-4); font-family: var(--cf-font-title); font-size: 1.0625rem; font-weight: 700; color: var(--cf-navy); }
+.cf-choices { display: grid; gap: var(--cf-space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); }
+.cf-choice > span { display: flex; flex-direction: column; gap: 0.1875rem; }
+.cf-choice strong { color: var(--cf-navy); font-size: 0.9375rem; }
+.cf-form-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--cf-space-3); padding-top: var(--cf-space-5); border-top: 1px solid #F1F5F9; }
+
+/* Tableau compact et pied de tableau */
+.cf-table--compact { min-width: 30rem; }
+.cf-table-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--cf-space-3); padding: var(--cf-space-4) var(--cf-space-5); border-top: 1px solid #F1F5F9; }
+.cf-user-cell { display: flex; align-items: center; gap: var(--cf-space-3); }
+.cf-user-cell strong { color: var(--cf-text); }
+.cf-user-cell__email, .cf-user-link span { display: block; font-size: var(--cf-fs-xs); color: var(--cf-text-muted); }
+.cf-user-link { color: var(--cf-text); }
+.cf-user-link:hover { text-decoration: none; color: var(--cf-navy); }
+.cf-action--edit { color: #1D4ED8; }
+.cf-action--toggle { color: #B45309; }
+.cf-action--delete { color: var(--cf-danger); }
+
+/* Mode test des e-mails */
+.cf-test-mode { border: 1.5px dashed #F59E0B; background: var(--cf-warning-bg); border-radius: 0.875rem; padding: var(--cf-space-4); display: flex; flex-direction: column; gap: var(--cf-space-2); color: var(--cf-warning-text); font-size: var(--cf-fs-sm); }
+.cf-test-mode p { margin: 0; }
+.cf-test-mode__tag { align-self: flex-start; padding: 0.1875rem 0.5625rem; border-radius: 6px; background: #FDE68A; color: #78350F; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; }
+.cf-test-mode__link { font-weight: 600; color: #1D4ED8; text-decoration: underline; word-break: break-all; }

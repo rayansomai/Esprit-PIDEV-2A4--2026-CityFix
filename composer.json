@@ -1,0 +1,9 @@
+{
+    "name": "cityfix/cityfix",
+    "description": "CITYFIX — plateforme de signalement citoyen (Projet Technologies Web 2A, ESPRIT)",
+    "type": "project",
+    "require": {
+        "php": ">=8.2",
+        "phpmailer/phpmailer": "^6.9"
+    }
+}

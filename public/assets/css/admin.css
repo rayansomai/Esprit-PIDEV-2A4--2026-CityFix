@@ -1,0 +1,180 @@
+/* ==========================================================================
+   CITYFIX — admin.css
+   Styles propres au Back Office : structure (sidebar + contenu), barre du haut,
+   tableau de bord, filtres, fiches, matrice des permissions.
+   ========================================================================== */
+
+/* STRUCTURE --------------------------------------------------------------- */
+.cf-admin { background: var(--cf-bg); }
+.cf-admin-shell { display: flex; min-height: 100vh; }
+.cf-admin-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.cf-admin-content { flex: 1; padding: var(--cf-space-8); display: flex; flex-direction: column; gap: var(--cf-space-6); }
+.cf-admin-content:focus { outline: none; }
+
+/* SIDEBAR (atelier, Partie 2 — étape 4) ------------------------------------ */
+.cf-sidebar {
+    width: var(--cf-sidebar-width);
+    flex-shrink: 0;
+    background: var(--cf-navy);
+    color: #CBD5E1;
+    padding: var(--cf-space-6) var(--cf-space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--cf-space-8);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+.cf-sidebar__brand { display: flex; align-items: center; gap: var(--cf-space-2); padding-inline: var(--cf-space-2); }
+.cf-sidebar__brand .cf-logo { font-size: 1.25rem; }
+.cf-sidebar__brand .cf-logo__mark { width: 2.25rem; height: 2.25rem; }
+.cf-sidebar__badge { margin-left: auto; padding: 0.1875rem 0.5rem; border-radius: 6px; background: rgba(255, 255, 255, 0.1); color: #E2E8F0; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.04em; }
+.cf-sidebar__close { display: none; color: #E2E8F0; background: transparent; }
+.cf-sidebar__nav { display: flex; flex-direction: column; gap: var(--cf-space-1); }
+.cf-sidebar__nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--cf-space-1); }
+.cf-sidebar__section { padding: var(--cf-space-4) var(--cf-space-3) var(--cf-space-2); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #94A3B8; }
+.cf-sidebar__section:first-child { padding-top: 0; }
+.cf-sidebar__link {
+    display: flex;
+    align-items: center;
+    gap: var(--cf-space-3);
+    width: 100%;
+    padding: 0.6875rem var(--cf-space-3);
+    border: 0;
+    border-radius: 0.625rem;
+    background: transparent;
+    color: #CBD5E1;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    text-align: left;
+    transition: background-color var(--cf-transition), color var(--cf-transition);
+}
+.cf-sidebar__link:hover { background: rgba(255, 255, 255, 0.06); color: var(--cf-white); text-decoration: none; }
+.cf-sidebar__link.is-active { background: var(--cf-green-dark); color: var(--cf-white); font-weight: 600; }
+.cf-sidebar__link.is-disabled { color: #94A3B8; cursor: default; }
+.cf-sidebar__link.is-disabled:hover { background: transparent; color: #94A3B8; }
+.cf-sidebar__footer { margin-top: auto; display: flex; flex-direction: column; gap: var(--cf-space-1); }
+.cf-sidebar__footer form { margin: 0; }
+.cf-sidebar-backdrop { position: fixed; inset: 0; z-index: 140; background: rgba(11, 30, 48, 0.5); }
+
+/* BARRE DU HAUT (atelier, Partie 2 — étape 5) ------------------------------ */
+.cf-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--cf-space-4);
+    padding: var(--cf-space-3) var(--cf-space-8);
+    background: var(--cf-white);
+    border-bottom: 1px solid var(--cf-border);
+}
+.cf-topbar__menu { display: none; }
+.cf-topbar__search {
+    flex: 0 1 24rem;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: var(--cf-space-2);
+    height: 2.75rem;
+    padding: 0 var(--cf-space-4);
+    border-radius: var(--cf-radius);
+    background: var(--cf-bg);
+    color: var(--cf-text-muted);
+}
+.cf-topbar__search:focus-within { box-shadow: var(--cf-focus-ring); }
+.cf-topbar__search input { flex: 1; min-width: 0; border: 0; background: transparent; font-size: var(--cf-fs-sm); outline: none; }
+.cf-topbar__user { display: flex; align-items: center; gap: var(--cf-space-3); }
+.cf-topbar__identity { display: flex; flex-direction: column; line-height: 1.3; }
+.cf-topbar__name { font-size: var(--cf-fs-sm); font-weight: 600; }
+.cf-topbar__role { font-size: 0.75rem; color: var(--cf-text-muted); }
+
+/* EN-TÊTE DE PAGE ---------------------------------------------------------- */
+.cf-page-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--cf-space-4); }
+.cf-page-head h1 { margin: 0 0 var(--cf-space-1); font-size: 1.75rem; }
+.cf-breadcrumb { margin-bottom: var(--cf-space-2); font-size: var(--cf-fs-sm); color: var(--cf-text-muted); }
+.cf-breadcrumb a { color: var(--cf-text-muted); }
+.cf-breadcrumb [aria-current] { color: var(--cf-navy); font-weight: 600; }
+
+/* TABLEAU DE BORD ---------------------------------------------------------- */
+.cf-stats { display: grid; gap: var(--cf-space-5); grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); }
+.cf-stats--3 { grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+.cf-dash-grid { display: grid; gap: var(--cf-space-5); grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); align-items: start; }
+.cf-bar { display: flex; gap: 3px; height: 14px; margin: var(--cf-space-4) 0 var(--cf-space-5); border-radius: 7px; overflow: hidden; background: var(--cf-bg); }
+.cf-bar__seg { display: block; min-width: 0; flex-basis: 0; }
+.cf-bar__seg--citoyen { background: var(--cf-green); }
+.cf-bar__seg--agent { background: #2563EB; }
+.cf-bar__seg--admin { background: var(--cf-navy); }
+.cf-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--cf-space-3); font-size: var(--cf-fs-sm); }
+.cf-legend li { display: flex; align-items: center; gap: var(--cf-space-3); }
+.cf-legend strong { margin-left: auto; }
+.cf-legend__dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+
+/* FILTRES ------------------------------------------------------------------ */
+.cf-filters { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cf-space-3); padding: var(--cf-space-4); }
+.cf-filters__search { flex: 2 1 16rem; position: relative; display: flex; align-items: center; }
+.cf-filters__search .cf-icon { position: absolute; left: 0.875rem; color: var(--cf-text-muted); pointer-events: none; }
+.cf-filters__search .cf-input { padding-left: 2.5rem; }
+.cf-filters .cf-select { flex: 1 1 10rem; width: auto; }
+
+/* FICHE UTILISATEUR -------------------------------------------------------- */
+.cf-detail-grid { display: grid; gap: var(--cf-space-5); grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); align-items: start; }
+.cf-user-card { display: flex; flex-direction: column; align-items: center; gap: var(--cf-space-3); text-align: center; }
+.cf-user-card h2 { margin: 0; font-size: 1.25rem; }
+.cf-dl { margin: var(--cf-space-4) 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: var(--cf-space-4) var(--cf-space-6); }
+.cf-dl div { border-bottom: 1px solid #F1F5F9; padding-bottom: var(--cf-space-3); }
+.cf-dl dt { font-size: var(--cf-fs-xs); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--cf-text-muted); }
+.cf-dl dd { margin: var(--cf-space-1) 0 0; font-weight: 500; word-break: break-word; }
+.cf-detail-actions { display: flex; flex-wrap: wrap; gap: var(--cf-space-3); margin-top: var(--cf-space-6); padding-top: var(--cf-space-5); border-top: 1px solid #F1F5F9; }
+
+.cf-form--admin { gap: var(--cf-space-8); }
+
+/* RÔLES & PERMISSIONS ------------------------------------------------------ */
+.cf-role-card { border-top: 4px solid var(--cf-border); }
+.cf-role-card--citoyen { border-top-color: var(--cf-green); }
+.cf-role-card--agent { border-top-color: #2563EB; }
+.cf-role-card--admin { border-top-color: var(--cf-navy); }
+.cf-card__header--padded { margin: 0; padding: var(--cf-space-5) var(--cf-space-6); border-bottom: 1px solid #F1F5F9; }
+.cf-matrix { min-width: 40rem; }
+.cf-matrix tbody th { padding: var(--cf-space-3) var(--cf-space-4); background: transparent; color: var(--cf-text); font-size: var(--cf-fs-sm); font-weight: 500; letter-spacing: 0; text-transform: none; border-top: 1px solid #F1F5F9; }
+.cf-matrix__label { display: block; }
+.cf-matrix__key { display: inline-block; margin-right: var(--cf-space-2); font-size: 0.75rem; color: var(--cf-text-muted); }
+.cf-matrix__check { position: relative; display: inline-flex; padding: var(--cf-space-2); cursor: pointer; }
+.cf-matrix__check input { width: 1.25rem; height: 1.25rem; accent-color: var(--cf-green-dark); cursor: pointer; }
+.cf-matrix__check input:disabled { cursor: not-allowed; }
+.cf-matrix__note { display: flex; gap: var(--cf-space-2); align-items: flex-start; margin: 0; padding: var(--cf-space-4) var(--cf-space-6) var(--cf-space-5); border-top: 1px solid #F1F5F9; }
+
+/* PIED DE PAGE (atelier, Partie 2 — étape 6) ------------------------------- */
+.cf-admin-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--cf-space-2); padding: var(--cf-space-4) var(--cf-space-8); border-top: 1px solid var(--cf-border); background: var(--cf-white); font-size: var(--cf-fs-xs); color: var(--cf-text-muted); }
+
+/* RESPONSIVE --------------------------------------------------------------- */
+@media (max-width: 1024px) {
+    /* La sidebar devient un panneau coulissant ouvert par le bouton ☰ */
+    .cf-sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 150;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        box-shadow: var(--cf-shadow-lg);
+    }
+    .cf-sidebar.is-open { transform: none; }
+    .cf-sidebar__close { display: inline-flex; margin-left: var(--cf-space-1); }
+    .cf-topbar__menu { display: inline-flex; }
+    .cf-topbar { padding-inline: var(--cf-space-4); }
+    .cf-admin-content { padding: var(--cf-space-6) var(--cf-space-4); }
+    .cf-dash-grid, .cf-detail-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 640px) {
+    .cf-topbar { gap: var(--cf-space-2); }
+    .cf-topbar__identity { display: none; }
+    .cf-topbar__user { gap: var(--cf-space-1); }
+    .cf-topbar__user .cf-avatar { display: none; }
+    .cf-topbar__search { flex: 1 1 auto; padding: 0 var(--cf-space-3); }
+    .cf-page-head h1 { font-size: 1.5rem; }
+    .cf-filters .cf-btn { flex: 1; }
+    .cf-admin-footer { padding-inline: var(--cf-space-4); }
+}
